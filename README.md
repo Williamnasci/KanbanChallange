@@ -1,50 +1,106 @@
-# React + TypeScript + Vite
+# Kanban Task Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma aplicação de quadro Kanban desenvolvida com **React**, **TypeScript** e **Vite**. Ele permite que usuários gerenciem tarefas em um quadro com status configuráveis, como "To Do", "In Progress", "Review" e "Done". Utiliza funcionalidades de arrastar e soltar (drag and drop) para reorganizar tarefas.
 
-Currently, two official plugins are available:
+## Estrutura do Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```plaintext
+src/
+├── components/
+│   ├── Header/
+│   ├── Task/
+│   ├── Section/
+│   └── ListTasks/
+├── hooks/
+│   └── useTasks.ts
+├── utils/
+│   └── taskUtils.ts
+├── App.tsx
+├── main.tsx
+└── index.html
 
-## Expanding the ESLint configuration
+````
+Principais Componentes
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+    Header: Componente do cabeçalho com um botão para salvar alterações.
+    Task: Componente para uma tarefa individual, com edição de título e descrição.
+    Section: Representa uma seção de status do quadro Kanban (e.g., "To Do", "In Progress").
+    ListTasks: Componente principal, gerencia o quadro Kanban e suas seções.
+    Hooks: Inclui um hook customizado useTasks para manipular dados de tarefas no localStorage.
 
-- Configure the top-level `parserOptions` property like this:
+Tecnologias Utilizadas
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
+    React: Biblioteca para construção da interface de usuário.
+    TypeScript: Para tipagem estática.
+    Vite: Ferramenta para criação e desenvolvimento rápido de aplicações React.
+    react-dnd: Biblioteca para funcionalidade de drag-and-drop.
+    react-hot-toast: Biblioteca para exibir notificações toast.
+    CSS: Para estilização.
+
+Funcionalidades
+
+    Adicionar Tarefa: Permite adicionar novas tarefas em qualquer coluna.
+    Editar Tarefa: Permite editar o título e a descrição de uma tarefa.
+    Remover Tarefa: Permite remover uma tarefa.
+    Drag and Drop: Move tarefas entre colunas usando arrastar e soltar.
+    Salvar Estado: Salva automaticamente as tarefas no localStorage.
+
+Instalação e Uso
+Pré-requisitos
+
+Certifique-se de ter o Node.js e o npm instalados.
+Passo a Passo
+
+    Clone o Repositório:
+
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+
+Instale as Dependências:
+
+npm install
+
+Inicie o Servidor de Desenvolvimento:
+
+    npm run dev
+
+    Acesse a Aplicação:
+
+    Abra o navegador e vá para http://localhost:3000.
+
+## Configuração de Alias
+
+Este projeto usa um alias `@` para importar módulos. Verifique se seu `vite.config.js` e `tsconfig.json` estão configurados corretamente:
+
+### `vite.config.js`
+
+```javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
     },
   },
-})
+});
+
+```
+## tsconfig.json
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Após fazer as alterações, reinicie o servidor com npm run dev.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Este projeto está licenciado sob a licença MIT.
